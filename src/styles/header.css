@@ -1,0 +1,41 @@
+.header {
+  background-color: #343a40;
+  height: 12vh;
+  padding: 5px;
+}
+
+.header-main{
+  color : #fff;
+  display: inline;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  text-decoration: none;
+}
+
+.btn:link,
+.btn:visited{
+  float: right;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 8px;
+  margin-right: 3px;
+  padding: 15px 40px;
+  display: inline;
+  border-radius: 100px;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-white {
+  background-color: #fff;
+  color: #777;
+}

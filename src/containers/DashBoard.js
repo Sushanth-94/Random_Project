@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import Modal from './Modal';
+import Modal from '../components/Modal';
 
 class DashBoard extends Component{
   constructor(props){

@@ -1,8 +1,9 @@
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
-import App from './App';
-import DashBoard from './DashBoard';
-import Header from './Header';
+import App from '../containers/App';
+import Login from '../components/Login';
+import Register from '../components/Register';
+import Header from '../components/Header';
 
 const AppRouter = () => {
   return(
@@ -10,7 +11,8 @@ const AppRouter = () => {
       <div>
         <Header />
         <Route exact path='/' component={App} />
-        <Route path='/dash' component={DashBoard} />
+        <Route path='/login' component={Login} />
+        <Route path='/register' component={Register} />
       </div>
     </BrowserRouter>
   )

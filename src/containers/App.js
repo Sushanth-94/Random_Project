@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import {withRouter, Redirect} from 'react-router-dom';
-import Form from './Form';
+
 
 class App extends Component {
   constructor(props){
@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div>
         {this.state.error && <p>{this.state.error}</p>}
-        <Form onFormSubmit={this.onFormSubmit} />
+
       </div>
     );
   }
