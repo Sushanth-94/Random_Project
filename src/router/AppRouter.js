@@ -9,7 +9,7 @@ const AppRouter = () => {
   return(
     <BrowserRouter>
       <div>
-        <Header />
+        <Header/>
         <Route exact path='/' component={App} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />

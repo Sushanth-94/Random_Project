@@ -39,3 +39,14 @@
   background-color: #fff;
   color: #777;
 }
+
+.landing {
+  position: relative;
+  background: url('carpark.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin-top: -24px;
+  margin-bottom: -50px;
+  opacity: 0.6
+}

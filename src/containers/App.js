@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import {withRouter, Redirect} from 'react-router-dom';
-
+import  '../styles/App.css';
 
 class App extends Component {
   constructor(props){
@@ -9,28 +9,23 @@ class App extends Component {
       error : ''
     }
   }
-  onFormSubmit = (e) => {
-    e.preventDefault();
-
-    const mail = e.target.elements.mail.value;
-    const password = e.target.elements.password.value;
-
-    if (mail==='clarion@clarion.com' & password==='Clarion123') {
-      this.props.history.push({
-        pathname : '/dash',
-        state : {name : mail}
-      })
-    }else {
-      this.setState({
-        error : 'User does not exist'
-      })
-    }
+  componentDidMount = () => {
+    this.getLocation()
+  }
+  getLocation = () => {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.showPosition);
+      } else {
+          alert("Geolocation is not supported by this browser.");
+      }
+  }
+   showPosition = (position) => {
+      console.log( "Latitude: " + position.coords.latitude +
+      "Longitude: " + position.coords.longitude );
   }
   render() {
     return (
-      <div>
-        {this.state.error && <p>{this.state.error}</p>}
-
+      <div className="landing">
       </div>
     );
   }
