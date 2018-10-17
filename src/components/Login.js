@@ -1,38 +1,49 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {loginUser} from '../redux/actions/authAction';
+import classnames from 'classnames';
 
 class Login extends Component{
   state = {
-    error : ''
+    email : '',
+    password: '',
+    errors : ''
   }
-  async validateUser(url,data){
-    const response = await fetch(url, {
-      method : 'POST',
-      headers : {
-        'Content-type' : 'application/json'
-      },
-      body : JSON.stringify(data)
-    });
-    const resData = await response.json();
-    return resData;
+  componentDidMount(){
+    if(this.props.auth.isAuthenticated){
+      this.props.history.push('/dashboard');
+    }
+  }
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+    if(nextProps.errors){
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
+  }
+
+  onChange = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value
+    })
   }
   onFormSubmit = (e) => {
     e.preventDefault();
-    const mail = e.target.elements.mail.value;
-    const password = e.target.elements.password.value;
-    if (mail.length > 0 && password.length > 0) {
-      const data = {
-        email : mail,
-        username : password
-      }
-      this.validateUser('https://jsonplaceholder.typicode.com/users',data)
-          .then(data => console.log(data))
 
-      this.setState({error : ''});
-    }else {
-      this.setState({error : 'Enter valid data'})
+    const userData = {
+      email : this.state.email,
+      password: this.state.password
     }
+
+    this.props.loginUser(userData)
+    console.log(userData);
   }
   render(){
+    const {errors} = this.state;
+
     return(
       <div>
         <div className="login">
@@ -43,10 +54,22 @@ class Login extends Component{
                 <p className="lead text-center">Sign in to your ParkEasy account</p>
                 <form onSubmit={this.onFormSubmit}>
                   <div className="form-group">
-                    <input name="mail" className="form-control form-control-lg" type='email' placeholder="Enter a valid email" />
+                    <input name="email"
+                           className= {classnames("form-control form-control-lg", {
+                              "is-invalid" : errors.email
+                           })}
+                           type='email' placeholder="Enter a valid email"
+                           value={this.state.email} onChange={this.onChange} />
+                         {errors.email && <div className="invalid-feedback">errors.email</div>}
                   </div>
                   <div className="form-group">
-                    <input name="password" className="form-control form-control-lg" type="password" placeholder="Enter password" />
+                    <input name="password"
+                           className={classnames( "form-control form-control-lg", {
+                             "is-invalid": errors.password
+                           })}
+                           type="password" placeholder="Enter password"
+                           value={this.state.password} onChange={this.onChange} />
+                         {errors.password && <div className="invalid-feedback">errors.password</div>}
                   </div>
                   <button type="submit" className="btn btn-info btn-block mt-4">Submit</button>
                 </form>
@@ -63,4 +86,9 @@ class Login extends Component{
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  auth : state.auth,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps, {loginUser})(Login);
